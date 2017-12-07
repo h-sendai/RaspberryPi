@@ -1,2 +1,2 @@
 # RaspberryPi
-Memorandum for RaspberryPi
+https://github.com/h-sendai/RaspberryPi/wiki
