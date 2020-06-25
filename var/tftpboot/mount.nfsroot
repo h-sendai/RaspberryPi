@@ -1,0 +1,21 @@
+#!/bin/sh
+
+do_mount_overlayfs()
+{
+    local serial=$1
+    merged=nfsroot-${serial}
+    mkdir -p ${merged}
+    mkdir -p site-common
+
+    lower=site-common:raspberry-pi-os
+    upper=upper/${merged}
+    work=work/${merged}
+    mkdir -p ${upper}
+    mkdir -p ${work}
+    # use nfs_export, index flags for NFS export
+    mount -t overlay overlay -o lowerdir=${lower},upperdir=${upper},workdir=${work},nfs_export=on,index=on,redirect_dir=nofollow ${merged}
+}
+
+do_mount_overlayfs aabbccdd
+do_mount_overlayfs eeffgghh
+do_mount_overlayfs iijjkkll

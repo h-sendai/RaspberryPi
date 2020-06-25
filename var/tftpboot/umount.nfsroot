@@ -1,0 +1,5 @@
+#!/bin/sh
+
+umount nfsroot-aabbccdd
+umount nfsroot-eeffgghh
+umount nfsroot-iijjkkll
