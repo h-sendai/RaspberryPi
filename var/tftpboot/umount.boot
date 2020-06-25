@@ -1,5 +1,5 @@
 #!/bin/sh
 
-umount aabbccdd
-umount eeffgghh
-umount iijjkkll
+umount a0000000
+umount b0000000
+umount c0000000

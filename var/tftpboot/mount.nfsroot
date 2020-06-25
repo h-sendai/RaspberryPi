@@ -1,13 +1,15 @@
 #!/bin/sh
 
+rpi_os_dir=raspberry-pi-os
+
 do_mount_overlayfs()
 {
-    local serial=$1
-    merged=nfsroot-${serial}
+    local serial_num=$1
+    merged=nfsroot-${serial_num}
     mkdir -p ${merged}
     mkdir -p site-common
 
-    lower=site-common:raspberry-pi-os
+    lower=site-common:${rpi_os_dir}
     upper=upper/${merged}
     work=work/${merged}
     mkdir -p ${upper}
@@ -16,6 +18,16 @@ do_mount_overlayfs()
     mount -t overlay overlay -o lowerdir=${lower},upperdir=${upper},workdir=${work},nfs_export=on,index=on,redirect_dir=nofollow ${merged}
 }
 
-do_mount_overlayfs aabbccdd
-do_mount_overlayfs eeffgghh
-do_mount_overlayfs iijjkkll
+if [ ! -d ${rpi_os_dir} ]; then
+    echo "lowerdir ${rpi_os_dir} does not exist. exit."
+    exit 0
+fi
+
+if [ ! -d ${rpi_os_dir}/boot ]; then
+    echo "lowerdir ${rpi_os_dir}/boot does not exist. exit."
+    exit 0
+fi
+
+do_mount_overlayfs a0000000
+do_mount_overlayfs b0000000
+do_mount_overlayfs c0000000

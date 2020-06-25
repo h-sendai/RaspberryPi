@@ -1,20 +1,32 @@
 #!/bin/sh
 
+rpi_os_dir=raspberry-pi-os
+
 do_mount_overlayfs()
 {
-    local serial=$1
-    mkdir -p $serial
+    local serial_num=$1
+    mkdir -p ${serial_num}
 
-    lower=raspberry-pi-os/boot
-    upper=upper/${serial}
-    work=work/${serial}
+    lower=${rpi_os_dir}/boot
+    upper=upper/${serial_num}
+    work=work/${serial_num}
     mkdir -p $upper
     mkdir -p $work
 
     # does not need nfs for boot partion (tftp only)
-    mount -t overlay overlay -o lowerdir=${lower},upperdir=${upper},workdir=${work} ${serial}
+    mount -t overlay overlay -o lowerdir=${lower},upperdir=${upper},workdir=${work} ${serial_num}
 }
 
-do_mount_overlayfs aabbccdd
-do_mount_overlayfs eeffgghh
-do_mount_overlayfs iijjkkll
+if [ ! -d ${rpi_os_dir} ]; then
+    echo "lowerdir ${rpi_os_dir} does not exist. exit."
+    exit 0
+fi
+
+if [ ! -d ${rpi_os_dir}/boot ]; then
+    echo "lowerdir ${rpi_os_dir}/boot does not exist. exit."
+    exit 0
+fi
+
+do_mount_overlayfs a0000000
+do_mount_overlayfs b0000000
+do_mount_overlayfs c0000000

@@ -1,5 +1,5 @@
 #!/bin/sh
 
-umount nfsroot-aabbccdd
-umount nfsroot-eeffgghh
-umount nfsroot-iijjkkll
+umount nfsroot-a0000000
+umount nfsroot-b0000000
+umount nfsroot-c0000000
